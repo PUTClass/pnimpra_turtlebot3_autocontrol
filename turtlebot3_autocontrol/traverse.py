@@ -29,12 +29,11 @@ class Traverse(Node):
         
         self.cmd_vel_pub = self.create_publisher(TwistStamped, "/cmd_vel", qos_profile=HistoryPolicy.KEEP_LAST)
 
-        self.run_forward()
         
     
     def stop(self):
         msg = TwistStamped()
-        msg.header = Header(stamp=self.get_clock().now())
+        msg.header = Header(stamp=self.get_clock().now().to_msg())
         msg.twist.angular.z = 0.0
         msg.twist.linear.x = 0.0
         
@@ -42,7 +41,7 @@ class Traverse(Node):
 
     def run_forward(self, vel=0.1):
         msg = TwistStamped()
-        msg.header = Header(stamp=self.get_clock().now())
+        msg.header = Header(stamp=self.get_clock().now().to_msg())
         msg.twist.angular.z = 0.0
         msg.twist.linear.x = vel
         
@@ -50,7 +49,7 @@ class Traverse(Node):
 
     def turn_left(self, vel = 0.1, ang_vel = 0.5):
         msg = TwistStamped()
-        msg.header = Header(stamp=self.get_clock().now())
+        msg.header = Header(stamp=self.get_clock().now().to_msg())
         msg.twist.angular.z = ang_vel
         msg.twist.linear.x = vel
         
@@ -58,7 +57,7 @@ class Traverse(Node):
 
     def turn_right(self, vel = 0.1, ang_vel = .5):
         msg = TwistStamped()
-        msg.header = Header(stamp=self.get_clock().now())
+        msg.header = Header(stamp=self.get_clock().now().to_msg())
         msg.twist.angular.z = -ang_vel
         msg.twist.linear.x = vel
         
